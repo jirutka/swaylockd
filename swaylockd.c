@@ -21,7 +21,7 @@
 #define PROGNAME "swaylockd"
 
 #ifndef VERSION
-  #define VERSION "0.0.0"
+  #define VERSION "0.1.0"
 #endif
 
 #ifndef SWAYLOCK_PATH
