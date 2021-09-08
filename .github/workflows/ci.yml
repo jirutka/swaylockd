@@ -1,0 +1,26 @@
+name: CI
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Build on Ubuntu x86_64 with ${{ matrix.CC }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        CC:
+          - gcc
+          - clang
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Install build dependencies
+        run: sudo apt-get install asciidoctor swaylock
+
+      - run: make build CC=${{ matrix.CC }}
+
+      - run: XDG_RUNTIME_DIR=/tmp ./build/swaylockd --version
+
+      - run: make install DESTDIR=dest

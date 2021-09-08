@@ -1,0 +1,53 @@
+= swaylockd
+:proj-name: swaylockd
+:version: 0.0.0
+:gh-name: jirutka/{proj-name}
+:releases-uri: https://github.com/{gh-name}/releases/download/v{version}
+
+ifdef::env-github[]
+image:https://github.com/{gh-name}/workflows/CI/badge.svg[Binaries Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22CI%22]
+endif::env-github[]
+
+*swaylockd* is a dumb launcher to spawn https://github.com/swaywm/swaylock[swaylock] and ensure it’s running no matter what -- it immediately restarts swaylock if terminated by a signal (e.g. the process crashed) and also blocks all signals (except `SIGKILL` and `SIGSTOP`).
+It also ensures that only one instance per user is running.
+
+swaylockd has been developed mainly as a workaround for the swaylock stability issues footnote:[Actually, it’s more a bad design. See article https://www.jwz.org/xscreensaver/toolkits.html[XScreenSaver:
+On Toolkit Dialogs] written in 2004 by Jamie Zawinski.] (see e.g. https://github.com/swaywm/swaylock/issues/181[#181]).
+
+swaylock is a critical piece of security software -- as a screen locker, any bug in the program that causes it to crash will cause the screen to unlock.
+As soon as swaylock is no longer running, the screen is no longer locked.
+Therefore, great care must be taken to ensure that the daemon never crash.
+
+Refer to link:{proj-name}.1.adoc[{proj-name}(1)] for more information.
+
+
+== Requirements
+
+.*Runtime*:
+* https://github.com/swaywm/swaylock[swaylock]
+
+.*Build*:
+* C compiler and linker supporting at least C99 (tested with clang and gcc)
+* https://www.gnu.org/software/make/[GNU Make]
+* http://asciidoctor.org/[Asciidoctor] (for building man pages)
+
+
+== Installation
+
+=== From Source Tarball
+
+[source, sh, subs="+attributes"]
+----
+wget https://github.com/{gh-name}/archive/v{version}/{proj-name}-{version}.tar.gz
+tar -xzf {proj-name}-{version}.tar.gz
+cd {proj-name}-{version}
+
+make build
+make install DESTDIR=/ prefix=/usr/local
+----
+
+
+== License
+
+This project is licensed under http://opensource.org/licenses/MIT/[MIT License].
+For the full text of the license, see the link:LICENSE[LICENSE] file.
