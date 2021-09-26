@@ -34,6 +34,14 @@ Refer to link:{proj-name}.1.adoc[{proj-name}(1)] for more information.
 
 == Installation
 
+=== On Alpine Linux
+
+Install package {proj-name} from the Alpine’s Edge community repository:
+
+[source, sh, subs="+attributes"]
+apk add {proj-name}
+
+
 === Using Pre-Built Binary
 
 {releases-uri}/{proj-name}-{version}-x86_64-unknown-linux.tar.gz[[x86_64]]
